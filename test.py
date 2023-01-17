@@ -1,13 +1,39 @@
+from BBANDS import use_BBANDS_pro
+from Stock_helper.get_proxy import GET_PROXY
+from Stock_helper.his_data import his_dt
 from Stock_helper.stock_now import stock_now_p
 import pandas as pd
 
-# List of Tuples
-fruit_list = [ ('Orange', 34, 'Yes' )]
-#Create a DataFrame object
-df = pd.DataFrame(fruit_list, columns = ['Name' , 'Price', 'Stock'])
-#Add new ROW
-df.loc[1]=[ 'Mango', 4, 'No' ]
-df.loc[2]=[ 'Apple', 14, 'Yes' ]
-df.loc[len(df.index)] =[ 'Apple1', 13, 'Yes' ]
-print(df)
-stock_now_p('601012')
+import time
+
+from threading import Thread
+
+
+def foo(number):
+    time.sleep(1)
+    return number
+
+
+class MyThread(Thread):
+
+    def __init__(self, number):
+        Thread.__init__(self)
+        self.number = number
+
+    def run(self):
+        self.result = foo(self.number)
+
+    def get_result(self):
+        return self.result
+
+
+thd1 = MyThread(3)
+thd2 = MyThread(5)
+thd1.start()
+thd2.start()
+thd1.join()
+thd2.join()
+
+print(thd1.get_result())
+print(thd2.get_result())
+
