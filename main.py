@@ -30,6 +30,7 @@ def th_cal(num,tf):
         D_threads.append(dem_t)
     for i in range(num):
         D_threads[i].join()
+        print('守护进程结束！')
 
 
 if __name__=="__main__":

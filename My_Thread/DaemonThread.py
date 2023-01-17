@@ -7,12 +7,14 @@ from Stock_helper.get_proxy import proxy_pool_getip
 #守护线程函数
 def dem_thread(t,num,tf):
     t.join()
-    while len(t.get_result())>0:
+    arr=t.get_result()
+    while len(arr)>0:
+        print('剩余ip  '+str(len(arr)))
         ip_port = proxy_pool_getip(num)
-        t1 = WorkThread(ip_port, t.get_result(), tf)
-        t = t1
-        t1.start()
-        t1.join()
+        t = WorkThread(ip_port, arr, tf)
+        t.start()
+        t.join()
+        arr = t.get_result()
 
 
 class DaemonThread(Thread):

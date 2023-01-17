@@ -1,16 +1,20 @@
+import threading
 import time
 
 from threading import Thread
 import pandas as pd
 from BBANDS import use_BBANDS_pro
 
+mutex = threading.Lock()
+s_num=0
 #计算boll
 def cal(ip_port,arr,tf=0):
     while len(arr)>0:
         s=arr.pop()
         try:
             upperband, middleband, lowerband,sp= use_BBANDS_pro(ip_port,s.strip('\n'),tf)
-        except:
+        except Exception as e:
+            #print(str(e))
             return arr
         a = pd.Series(lowerband)
         b = pd.Series(middleband)
@@ -18,6 +22,12 @@ def cal(ip_port,arr,tf=0):
         low = a.values[a.size - 1]
         mid = b.values[b.size - 1]
         high = c.values[c.size - 1]
+
+        #global s_num
+        # mutex.acquire()
+        # s_num=s_num+1
+        # print('已经测试'+str(s_num)+'个')
+        # mutex.release()
         if float(sp)<low:
             print(s.strip('\n'), sp)
     return []

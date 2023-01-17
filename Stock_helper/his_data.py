@@ -9,7 +9,7 @@ def his_dt(ip_port,id,tf=0):
        id='sh'+id
     else:
         id = 'sz' + id
-    r = requests.get("http://api.finance.ifeng.com/akdaily/?code=" + id + "&type=last", proxies=proxies)
+    r = requests.get("http://api.finance.ifeng.com/akdaily/?code=" + id + "&type=last", proxies=proxies,timeout=2)
     if r.status_code!=200:
         print('获取历史数据异常！')
         raise Exception('This is the error message.')
