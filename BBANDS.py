@@ -32,13 +32,16 @@ def use_BBANDS(id, st, et,tf):
 
 def use_BBANDS_pro(ip_port,id,tf=0):
     sp=0
-    se = his_dt(ip_port,id,tf)
-    sp=se.iloc[-1]
+    pri_low=0
+    se_close ,se_high,se_low= his_dt(ip_port,id,tf)
+    sp=se_close.iloc[-1]
     if tf == 1:
-        p=stock_now_p(id);
-        sp=p
-        se.append(p)
-    upperband, middleband, lowerband = tb.BBANDS(se, 20, 2, 2)
+        p_now,p_low,p_high=stock_now_p(id);
+        sp=p_now
+        pri_low=p_low
+        se_close[se_close.values.size]=str(p_now)
+
+    upperband, middleband, lowerband = tb.BBANDS(se_close, 20, 2, 2)
 
 
-    return upperband, middleband, lowerband,sp
+    return upperband, middleband, lowerband,sp,pri_low

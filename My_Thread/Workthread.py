@@ -4,6 +4,7 @@ import time
 from threading import Thread
 import pandas as pd
 from BBANDS import use_BBANDS_pro
+from STOCH import use_STOCH_pro
 
 mutex = threading.Lock()
 s_num=0
@@ -12,7 +13,8 @@ def cal(ip_port,arr,tf=0):
     while len(arr)>0:
         s=arr.pop()
         try:
-            upperband, middleband, lowerband,sp= use_BBANDS_pro(ip_port,s.strip('\n'),tf)
+            upperband, middleband, lowerband,sp,p_low= use_BBANDS_pro(ip_port,s.strip('\n'),tf)
+            k,d,j=use_STOCH_pro(ip_port,s.strip('\n'),tf)
         except Exception as e:
             #print(str(e))
             return arr
@@ -28,7 +30,7 @@ def cal(ip_port,arr,tf=0):
         # s_num=s_num+1
         # print('已经测试'+str(s_num)+'个')
         # mutex.release()
-        if float(sp)<low:
+        if float(p_low)<=low and k.values[k.size - 1]<20 and d.values[d.size - 1]<20:
             print(s.strip('\n'), sp)
     return []
 

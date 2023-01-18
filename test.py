@@ -1,4 +1,5 @@
 from BBANDS import use_BBANDS_pro
+from STOCH import use_STOCH
 from Stock_helper.get_proxy import GET_PROXY
 from Stock_helper.his_data import his_dt
 from Stock_helper.stock_now import stock_now_p
@@ -8,32 +9,5 @@ import time
 
 from threading import Thread
 
-
-def foo(number):
-    time.sleep(1)
-    return number
-
-
-class MyThread(Thread):
-
-    def __init__(self, number):
-        Thread.__init__(self)
-        self.number = number
-
-    def run(self):
-        self.result = foo(self.number)
-
-    def get_result(self):
-        return self.result
-
-
-thd1 = MyThread(3)
-thd2 = MyThread(5)
-thd1.start()
-thd2.start()
-thd1.join()
-thd2.join()
-
-print(thd1.get_result())
-print(thd2.get_result())
-
+se_close ,se_high,se_low= his_dt('115.209.248.6:17894','000001',0)
+use_STOCH(se_high,se_low,se_close)

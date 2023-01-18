@@ -34,7 +34,7 @@ def th_cal(num,tf):
 
 
 if __name__=="__main__":
-    th_cal(10,0)
+    th_cal(10,1)
     print("结束")
 
 

@@ -16,9 +16,16 @@ def his_dt(ip_port,id,tf=0):
     s = r.content.decode()
     text = json.loads(s)
     a=text['record']
-    c=[]
+    close=[]
+    high=[]
+    low=[]
     for i in range(len(a)):
-        c.append(a[i][3])
-    s=pd.Series(c)
-    return s
+        high.append(a[i][2])
+        close.append(a[i][3])
+        low.append(a[i][4])
+    s_close=pd.Series(close)
+    s_high=pd.Series(high)
+    s_low=pd.Series(low)
+
+    return s_close,s_high,s_low
 

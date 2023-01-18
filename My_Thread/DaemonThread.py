@@ -9,7 +9,7 @@ def dem_thread(t,num,tf):
     t.join()
     arr=t.get_result()
     while len(arr)>0:
-        print('剩余ip  '+str(len(arr)))
+        #print('剩余ip  '+str(len(arr)))
         ip_port = proxy_pool_getip(num)
         t = WorkThread(ip_port, arr, tf)
         t.start()
