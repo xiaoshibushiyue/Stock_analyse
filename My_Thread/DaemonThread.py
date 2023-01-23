@@ -3,7 +3,6 @@ from threading import Thread
 from My_Thread.Workthread import WorkThread
 from Stock_helper.get_proxy import proxy_pool_getip
 
-
 #守护线程函数
 def dem_thread(t,num,tf):
     t.join()

@@ -5,6 +5,7 @@ from threading import Thread
 import pandas as pd
 from BBANDS import use_BBANDS_pro
 from STOCH import use_STOCH_pro
+from Stock_helper.his_data import his_dt, clear_his_data
 
 mutex = threading.Lock()
 s_num=0
@@ -13,8 +14,11 @@ def cal(ip_port,arr,tf=0):
     while len(arr)>0:
         s=arr.pop()
         try:
+            his_dt(ip_port,s.strip('\n'),tf)
             upperband, middleband, lowerband,sp,p_low= use_BBANDS_pro(ip_port,s.strip('\n'),tf)
             k,d,j=use_STOCH_pro(ip_port,s.strip('\n'),tf)
+            #一定要清除
+            clear_his_data()
         except Exception as e:
             #print(str(e))
             return arr

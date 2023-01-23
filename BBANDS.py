@@ -15,7 +15,7 @@ import pandas as pd
 # （5）matype：平均值计算类型，0代表简单一定平均，还可以有加权平均等方式。
 
 from Base_data import Get_stock_data
-from Stock_helper.his_data import his_dt
+from Stock_helper.his_data import his_dt, get_his_data
 from Stock_helper.stock_now import stock_now_p
 
 
@@ -33,7 +33,8 @@ def use_BBANDS(id, st, et,tf):
 def use_BBANDS_pro(ip_port,id,tf=0):
     sp=0
     pri_low=0
-    se_close ,se_high,se_low= his_dt(ip_port,id,tf)
+    df= get_his_data()
+    se_close, se_high, se_low =df['今收'],df['最高'],df['最低']
     sp=se_close.iloc[-1]
     if tf == 1:
         p_now,p_low,p_high=stock_now_p(id);
@@ -42,6 +43,4 @@ def use_BBANDS_pro(ip_port,id,tf=0):
         se_close[se_close.values.size]=str(p_now)
 
     upperband, middleband, lowerband = tb.BBANDS(se_close, 20, 2, 2)
-
-
     return upperband, middleband, lowerband,sp,pri_low

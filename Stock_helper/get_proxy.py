@@ -9,10 +9,12 @@ def GET_PROXY(num):
     if r.status_code != 200:
         print('代理获取异常！')
     s = r.content.decode()
+    if s.__contains__('error'):
+        print('代理用完了！')
     ips = json.loads(s)
     t=ips['obj']
     return t
-
+pool_num=0
 ip_ports=[]
 #代理池
 def proxy_pool_getip(num):
@@ -27,3 +29,6 @@ def proxy_pool_getip(num):
     else:
         return ip_ports.pop()
 
+#为线程池设置线程数
+def Set_pool_num(num):
+    pool_num=num

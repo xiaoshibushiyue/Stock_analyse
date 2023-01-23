@@ -3,7 +3,7 @@ import threading
 
 from My_Thread.DaemonThread import DaemonThread
 from My_Thread.Workthread import WorkThread
-from Stock_helper.get_proxy import  proxy_pool_getip
+from Stock_helper.get_proxy import proxy_pool_getip, Set_pool_num
 
 
 #list分组----为多线程分配
@@ -34,6 +34,9 @@ def th_cal(num,tf):
 
 
 if __name__=="__main__":
+    #设置线程数
+    Set_pool_num(2)
+    #启动线程
     th_cal(2,0)
     print("结束")
 
