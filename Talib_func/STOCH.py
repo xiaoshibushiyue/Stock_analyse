@@ -1,8 +1,8 @@
 import talib as tb
 import pandas as pd
 
-from Stock_helper.his_data import his_dt
-from Stock_helper.stock_now import stock_now_p
+from Stock_helper.History_Data import His_Data
+from Stock_helper.Now_data import Now_Data
 
 
 def use_STOCH(high,low,close):
@@ -17,9 +17,15 @@ def use_STOCH(high,low,close):
 
 def use_STOCH_pro(ip_port,id,tf=0):
     global se_low, se_high, se_close
-    df = his_dt(ip_port, id, tf)
+    h_d=His_Data(ip_port, id)
+    df = h_d.get()
     if tf==1:
-        p_now, p_low, p_high = stock_now_p(id);
+        now_data = Now_Data(id)
+        df = now_data.get()
+        p_now = df['现价'].pop()
+        p_low = df['最低'].pop()
+        p_high = df['最高'].pop()
+
         se_close=df['今收']
         se_high=df['最高']
         se_low=df['最低']

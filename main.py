@@ -1,11 +1,11 @@
 import math
 import threading
 
-from My_Thread.DaemonThread import DaemonThread
-from My_Thread.Workthread import WorkThread
-from Stock_helper.get_proxy import proxy_pool_getip, Set_pool_num
+from Proxy_Tools.Proxy_Helper import Proxy_Helper
+from Thread_tools.DaemonThread import DaemonThread
+from Thread_tools.Workthread import WorkThread
 
-
+lock = threading.Lock()
 #list分组----为多线程分配
 def chunks(arr, m):
     n = int(math.ceil(len(arr) / float(m)))
@@ -13,19 +13,17 @@ def chunks(arr, m):
 D_threads=[]
 
 #多线程封装
-def th_cal(num,tf):
-    th_num=num
+def th_cal(num,tf,ph):
     f = open('stock.txt')
     data = f.readlines()
     data_ = chunks(data, num)
-
     for i in range(num):
-        ip_port=proxy_pool_getip(num)
+        ip_port=ph.Get_IP_PORT(0)
+#创建工作线程
         t=WorkThread(ip_port,data_[i],tf)
         t.start()
-
 #创建守护线程
-        dem_t=DaemonThread(t,num,tf)
+        dem_t=DaemonThread(t,num,tf,ph)
         dem_t.start()
         D_threads.append(dem_t)
     for i in range(num):
@@ -34,10 +32,10 @@ def th_cal(num,tf):
 
 
 if __name__=="__main__":
-    #设置线程数
-    Set_pool_num(2)
+    #代理池对象
+    PH=Proxy_Helper(2)
     #启动线程
-    th_cal(2,0)
+    th_cal(2,0,PH)
     print("结束")
 
 

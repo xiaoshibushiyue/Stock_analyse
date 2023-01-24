@@ -15,29 +15,30 @@ import pandas as pd
 # （5）matype：平均值计算类型，0代表简单一定平均，还可以有加权平均等方式。
 
 from Base_data import Get_stock_data
-from Stock_helper.his_data import his_dt, get_his_data
-from Stock_helper.stock_now import stock_now_p
-
+from Stock_helper import Now_data
+from Stock_helper.History_Data import His_Data
+from Stock_helper.Now_data import Now_Data
 
 def use_BBANDS(id, st, et,tf):
     df = Get_stock_data(id, st, et)
-    close=df["close"].values[0]
     df=df.iloc[::-1]
-    if tf==1:
-        sp=stock_now_p(id)
-        df.loc[len(df.index)] = [20, 7, sp,3,3,3,3,1,1,1,1,1,1,1]
     upperband, middleband, lowerband= tb.BBANDS(df["close"],20,2,2)
 
-    return upperband, middleband, lowerband,sp
+    return upperband, middleband, lowerband
 
 def use_BBANDS_pro(ip_port,id,tf=0):
     sp=0
     pri_low=0
-    df= get_his_data()
+    h_d=His_Data(ip_port,id)
+    df= h_d.get()
     se_close, se_high, se_low =df['今收'],df['最高'],df['最低']
     sp=se_close.iloc[-1]
     if tf == 1:
-        p_now,p_low,p_high=stock_now_p(id);
+        now_data=Now_data(id)
+        df=now_data.get()
+        p_now=df['现价'].pop()
+        p_low=df['最低'].pop()
+        p_high=df['最高'].pop()
         sp=p_now
         pri_low=p_low
         se_close[se_close.values.size]=str(p_now)
