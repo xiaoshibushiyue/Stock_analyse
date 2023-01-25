@@ -1,20 +1,19 @@
 from threading import Thread
 import pandas as pd
 from Proxy_Tools.Proxy_Helper import Proxy_Helper
-from Talib_func.BBANDS import use_BBANDS_pro
-from Talib_func.STOCH import use_STOCH_pro
+from Talib_func.BBANDS import  use_BBANDS
+from Talib_func.STOCH import  use_STOCH
 from Thread_tools.Dispatcher import Dispatcher
 
 
 class WorkerThread(Thread):
     upperband, middleband, lowerband, k, d, j, sp, p_low = ''
     ip_times=0
-    def __init__(self, tf):
+    def __init__(self):
         Thread.__init__(self)
         self.time = 0
         self.id = None
         self.ip = Proxy_Helper.Get_IP_PORT()
-        self.tf = tf
     def run(self):
         while True:
             self.id = Dispatcher.Dispatch()
@@ -34,8 +33,8 @@ class WorkerThread(Thread):
         def strategy():
             try:
                 global upperband, middleband, lowerband, k, d, j, sp, p_low
-                upperband, middleband, lowerband, sp, p_low = use_BBANDS_pro(self.ip, id.strip('\n'),self.tf)
-                k, d, j = use_STOCH_pro(self.ip, id.strip('\n'),self.tf)
+                upperband, middleband, lowerband, = use_BBANDS(self.ip, id.strip('\n'))
+                k, d, j = use_STOCH(self.ip, id.strip('\n'))
                 return 0
             except Exception as e:
                 self.ip_record(self.ip, 'f')
