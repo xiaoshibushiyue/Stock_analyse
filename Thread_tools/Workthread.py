@@ -27,11 +27,11 @@ def cal(ip_port,arr,tf,ph):
         mid = b.values[b.size - 1]
         high = c.values[c.size - 1]
 
-        #global s_num
-        # mutex.acquire()
-        # s_num=s_num+1
-        # print('已经测试'+str(s_num)+'个')
-        # mutex.release()
+        global s_num
+        mutex.acquire()
+        s_num=s_num+1
+        print('已经测试'+str(s_num)+'个')
+        mutex.release()
         if float(p_low)<=low and k.values[k.size - 1]<20 and d.values[d.size - 1]<20:
             print(s.strip('\n'), sp)
     return []

@@ -19,6 +19,9 @@ def use_STOCH_pro(ip_port,id,tf=0):
     global se_low, se_high, se_close
     h_d=His_Data(ip_port, id)
     df = h_d.get()
+    se_close = df['今收']
+    se_high = df['最高']
+    se_low = df['最低']
     if tf==1:
         now_data = Now_Data(id)
         df = now_data.get()
@@ -32,5 +35,5 @@ def use_STOCH_pro(ip_port,id,tf=0):
         se_close[se_close.values.size] = str(p_now)
         se_high[se_high.values.size]=str(p_high)
         se_low[se_low.values.size]=str(p_low)
-    k,d,j=use_STOCH( se_high, se_low,se_close)
+    k,d,j=use_STOCH(se_high, se_low,se_close)
     return k,d,j

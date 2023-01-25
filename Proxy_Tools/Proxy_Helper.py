@@ -2,7 +2,10 @@
 import json
 import  time
 import requests
+import threading
 
+
+lock=threading.Lock()
 #暂时不解决ip浪费的问题
 class Proxy_Helper:
     #代理池中的线程数---因为代理服务商有代理调用频率的限制，所以只能提前存储好一定数量的代理
@@ -22,7 +25,7 @@ class Proxy_Helper:
 
 #从代理商获取ip
     def Get_ips(self):
-        Proxy_Helper.__proxy_num = Proxy_Helper.__proxy_num + 5
+        Proxy_Helper.__proxy_num = Proxy_Helper.__proxy_num + 2
         url = "http://route.xiongmaodaili.com/xiongmao-web/api/glip?secret=40d24acd2d6b3835f5584b7d975dba75&orderNo=GL20230118133056xh9QfWzp&count=" + str(
             Proxy_Helper.__proxy_num) + "&isTxt=0&proxyType=1"
         r = requests.get(url)
@@ -41,17 +44,17 @@ class Proxy_Helper:
         self.__proxy_ips=t1
 
 #获取ip mode为获取模式 0为非节省模式 1为节省模式
-    def Get_IP_PORT(self,mode):
+    def Get_IP_PORT(self,mode=0):
         if mode==0:
             if len(self.__proxy_ips)==0:
-                self.Get_ips(self)
+                self.Get_ips()
             return self.__proxy_ips.pop()
         if mode==1:
             if len(self.__proxy_ips_useless)!=0:
                 return self.__proxy_ips_useless.pop()
             else:
                 if len(self.__proxy_ips) == 0:
-                    self.Get_ips(self)
+                    self.Get_ips()
                 return self.__proxy_ips.pop()
 #记录废弃ip
     def Add_waste_ip(self,ip_port):

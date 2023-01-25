@@ -6,6 +6,7 @@ from Thread_tools.Workthread import WorkThread
 lock = threading.Lock()
 #守护线程函数
 def dem_thread(t,num,tf,ph):
+    t.start()
     t.join()
     arr=t.get_result()
     while len(arr)>0:
@@ -13,7 +14,7 @@ def dem_thread(t,num,tf,ph):
         lock.acquire()
         ip_port = ph.Get_IP_PORT(0)
         lock.release()
-        t = WorkThread(ip_port, arr, tf)
+        t = WorkThread(ip_port, arr, tf,ph)
         t.start()
         t.join()
         arr = t.get_result()

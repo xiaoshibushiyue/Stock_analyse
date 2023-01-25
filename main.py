@@ -20,11 +20,11 @@ def th_cal(num,tf,ph):
     for i in range(num):
         ip_port=ph.Get_IP_PORT(0)
 #创建工作线程
-        t=WorkThread(ip_port,data_[i],tf)
-        t.start()
+        t=WorkThread(ip_port,data_[i],tf,ph)
 #创建守护线程
         dem_t=DaemonThread(t,num,tf,ph)
         dem_t.start()
+
         D_threads.append(dem_t)
     for i in range(num):
         D_threads[i].join()
