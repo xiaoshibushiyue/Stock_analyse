@@ -43,11 +43,15 @@ class Proxy_Helper:
             t1.append(t[i]['ip']+':'+t[i]['port'])
         self.__proxy_ips=t1
 
+
 #获取ip mode为获取模式 0为非节省模式 1为节省模式
+    @staticmethod
     def Get_IP_PORT(self,mode=0):
         if mode==0:
+            lock.acquire()
             if len(self.__proxy_ips)==0:
                 self.Get_ips()
+            lock.release()
             return self.__proxy_ips.pop()
         if mode==1:
             if len(self.__proxy_ips_useless)!=0:

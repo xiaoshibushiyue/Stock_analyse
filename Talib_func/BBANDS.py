@@ -19,10 +19,10 @@ from Stock_helper import Now_data
 from Stock_helper.History_Data import His_Data
 from Stock_helper.Now_data import Now_Data
 
-def use_BBANDS(id, st, et,tf):
-    df = Get_stock_data(id, st, et)
-    df=df.iloc[::-1]
-    upperband, middleband, lowerband= tb.BBANDS(df["close"],20,2,2)
+def use_BBANDS(close):
+    #df = Get_stock_data(id, st, et)
+
+    upperband, middleband, lowerband= tb.BBANDS(close,20,2,2)
 
     return upperband, middleband, lowerband
 

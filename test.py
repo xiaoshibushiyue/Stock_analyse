@@ -5,6 +5,22 @@ from Stock_helper.Now_data import Now_Data
 
 import pymongo
 
+class test1:
+    a = ''
+    def ss(self):
+        pass
+    def aaa(self):
+        def bbb():
+            global a
+            a = 1
+
+        bbb()
+        return a
+
+
+c=test1()
+b=c.aaa()
+print(b)
 db1=M_dbHelper('600000')
 
 gh=db1.find()

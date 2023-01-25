@@ -4,8 +4,8 @@ import talib as tb
 #如果当前价格比之前的价格高一个ATR的涨幅，买入股票
 # 如果之前的价格比当前价格高一个ATR的涨幅，卖出股票
 from Base_data import Get_stock_data
-def use_ATR(id, st, et):
-    df = Get_stock_data(id, st, et)
+def use_ATR(high,low,close):
+    #df = Get_stock_data(id, st, et)
 
-    a = tb.ATR(df["最高"], df["最低"],df["收盘"],5)
+    a = tb.ATR(high,low,close,5)
     return a

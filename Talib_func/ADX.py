@@ -12,9 +12,9 @@ import akshare as ak
 #50-75	Very Strong Trend
 #75-100	Extremely Strong Trend
 from Base_data import Get_stock_data
-def use_ADX(id, st, et):
-    df = Get_stock_data(id, st, et)
-    a = tb.ADX(df["最高"], df["最低"], df["收盘"],5)
+def use_ADX(high,low,close):
+    #df = Get_stock_data(id, st, et)
+    a = tb.ADX(high,low,close,5)
     if (a>0 and a<25):
         print("弱趋势")
     if (a>25 and a<50):

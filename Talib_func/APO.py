@@ -7,10 +7,10 @@ import akshare as ak
 
 # 当APO下穿0，表示卖出信号。
 from Base_data import Get_stock_data
-def use_APO(id, st, et):
-    df = Get_stock_data(id, st, et)
+def use_APO(close):
+    #df = Get_stock_data(id, st, et)
 
-    a = tb.APO(df["收盘"],3,5)
+    a = tb.APO(close,3,5)
     if (a>0):
         print("买入")
     if (a<0):

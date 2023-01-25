@@ -6,7 +6,7 @@ import talib as tb
 # ◆ β>1，说明该单项资产的风险收益率高于市场组合平均风险收益率，则该单项资产的风险大于整个市场投资组合的风险；
 # ◆ β<1，说明该单项资产的风险收益率小于市场组合平均风险收益率，则该单项资产的风险程度小于整个市场投资组合的风险。
 from Base_data import Get_stock_data
-def use_BETA(id, st, et):
-    df = Get_stock_data(id, st, et)
-    a = tb.BETA(df["最高"], df["最低"])
+def use_BETA(high,low):
+    #df = Get_stock_data(id, st, et)
+    a = tb.BETA(high,low)
     return a

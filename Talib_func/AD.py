@@ -8,10 +8,9 @@ from Base_data import Get_stock_data
 
 
 
-def use_AD(id,st,et):
-    df=Get_stock_data(id,st,et)
-    a = tb.AD(df["最高"], df["最低"], df["收盘"], df["成交量"])
-    tb.stream_BBANDS()
+def use_AD(high,low,close,vol):
+    #df=Get_stock_data(id,st,et)
+    a = tb.AD(high, low, close, vol)
     return a
 
 
