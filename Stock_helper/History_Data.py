@@ -39,14 +39,8 @@ class His_Data:
             vol_s.append(a[i][5])
             pri_Dvalue.append(a[i][6])
             Increase.append(a[i][7])
-        # s_data = pd.Series[data]
-        # s_start = pd.Series[start]
-        # s_vols = pd.Series[vol_s]
-        # s_priDvalue = pd.Series[pri_Dvalue]
-        # s_Incr = pd.Series[Increase]
-        # s_close = pd.Series(close)
-        # s_high = pd.Series(high)
-        # s_low = pd.Series(low)
+        #这里没有一个成交量 只有一个总手
         df = pd.DataFrame({'日期':data, '今开': start, '最高':high, '今收':close, '最低': low
                               , '总手': vol_s, '价差': pri_Dvalue, '涨幅': Increase})
+
         return df

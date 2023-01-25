@@ -18,6 +18,8 @@ def th_cal(num,tf,ph):
     data = f.readlines()
     data_ = chunks(data, num)
     for i in range(num):
+        #数据库判断是否数据为最新数据
+
         ip_port=ph.Get_IP_PORT(0)
 #创建工作线程
         t=WorkThread(ip_port,data_[i],tf,ph)
@@ -32,6 +34,7 @@ def th_cal(num,tf,ph):
 
 
 if __name__=="__main__":
+
     #代理池对象
     PH=Proxy_Helper(2)
     #启动线程
