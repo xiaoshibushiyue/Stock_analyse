@@ -25,7 +25,7 @@ class Proxy_Helper:
 
 #从代理商获取ip
     def Get_ips(self):
-        Proxy_Helper.__proxy_num = Proxy_Helper.__proxy_num + 2
+        Proxy_Helper.__proxy_num = Proxy_Helper.__proxy_num + 10
         url = "http://route.xiongmaodaili.com/xiongmao-web/api/glip?secret=40d24acd2d6b3835f5584b7d975dba75&orderNo=GL20230118133056xh9QfWzp&count=" + str(
             Proxy_Helper.__proxy_num) + "&isTxt=0&proxyType=1"
         r = requests.get(url)

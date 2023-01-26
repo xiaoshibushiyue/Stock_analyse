@@ -20,10 +20,11 @@ class WorkerThread(Thread):
         print('线程初始化获取ip'+self.ip)
         self.df=pd.DataFrame()
     def run(self):
+        disp = Dispatcher()
+        self.id = disp.Dispatch(disp)
         while self.id!='0':
-            disp=Dispatcher()
-            self.id = disp.Dispatch(disp)
             self.cal(self.id)
+            self.id = disp.Dispatch(disp)
     def get_result(self):
         return self.result
 

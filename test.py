@@ -8,9 +8,10 @@ from Stock_helper.Now_data import Now_Data
 
 import pymongo
 
-from Thread_tools.Dispatcher import Dispatcher
 
-
+data=[]
+ccc=len(data)
+print(len(data))
 
 r = requests.get("http://api.finance.ifeng.com/akdaily/?code=sz003043&type=last")
 

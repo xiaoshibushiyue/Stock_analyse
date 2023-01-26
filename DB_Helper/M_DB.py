@@ -8,7 +8,7 @@ class M_dbHelper:
         self.dbname=dbname
         dblist = self.myclient.list_database_names()
         if self.dbname in dblist:
-            print("数据库已存在！")
+            #print("数据库已存在！")
             self.mydb = self.myclient[self.dbname]
             self.mycollection=self.mydb['stock']
         else:
