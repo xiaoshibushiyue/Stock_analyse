@@ -1,3 +1,6 @@
+import pandas as pd
+import requests
+
 from DB_Helper.M_DB import M_dbHelper
 from Proxy_Tools.Proxy_Helper import Proxy_Helper
 from Stock_helper.History_Data import His_Data
@@ -5,25 +8,34 @@ from Stock_helper.Now_data import Now_Data
 
 import pymongo
 
-class test1:
-    a = ''
-    def ss(self):
-        pass
-    def aaa(self):
-        def bbb():
-            global a
-            a = 1
-
-        bbb()
-        return a
+from Thread_tools.Dispatcher import Dispatcher
 
 
-c=test1()
-b=c.aaa()
-print(b)
+
+r = requests.get("http://api.finance.ifeng.com/akdaily/?code=sz003043&type=last")
+
+s = r.content.decode()
+
+
+df = pd.DataFrame([{'name':'xiaos','age':13}])
+newpd=pd.DataFrame([{'name':'xiaoshi','age':133}])
+
+df=df.append(newpd,ignore_index=True)
+
+addd=df.values[-1]
+agwe=addd['age'][1]
+
+
 db1=M_dbHelper('600000')
+gh=db1.find_lastone()
 
-gh=db1.find()
+a=1
+
+
+
+
+
+
 
 # f = open('stock.txt')
 # data = f.readlines()

@@ -14,11 +14,15 @@ class His_Data:
             self.id = 'sh' + self.id
         else:
             self.id = 'sz' + self.id
-        r = requests.get("http://api.finance.ifeng.com/akdaily/?code=" + self.id + "&type=last", proxies=proxies, timeout=2)
+        r = requests.get("http://api.finance.ifeng.com/akdaily/?code=" + self.id + "&type=last", proxies=proxies, timeout=20)
         if r.status_code != 200:
             print('获取历史数据异常！')
             raise Exception('This is the error message.')
         s = r.content.decode()
+        if s=='{"record":{}}':
+            print('返回了空数据')
+            raise Exception('This is the error message.')
+        #'{"record":{}}'
         text = json.loads(s)
         a = text['record']
         data = []

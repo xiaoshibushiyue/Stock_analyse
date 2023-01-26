@@ -1,5 +1,6 @@
 import pymongo
 import pandas as pd
+import time, datetime
 class M_dbHelper:
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
@@ -34,7 +35,13 @@ class M_dbHelper:
         for s in all:
             list_data.append(s)
         df = pd.DataFrame(list_data)
-        return  df
+        return df
+    def find_lastone(self,s_day):
+        last=self.mycollection.find({"日期":s_day})
+        i=0
+        for x in last:
+           i=i+1
+        return i
 
 
 
