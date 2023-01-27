@@ -79,6 +79,13 @@ def isTrading_day_time():
             if data.hour<15:
                 return True
         return  False
+#判断是否为交易日的非交易时间段
+def isTrading_day():
+    data = datetime.datetime.now()
+    if is_weekday(data) == True:
+        if data.hour > 16:
+            return True
+        return  False
 def Get_data_now():
     data = datetime.datetime.now()
     Y = data.year
@@ -110,7 +117,6 @@ class All_Data:
             df_his = his.get()
             #更新历史数据
             hh = df_his.to_dict(orient='records')
-
             m_db.insert_many(hh)
 
         #判断是否为交易时段
@@ -118,6 +124,12 @@ class All_Data:
             df_now = Now_Data(self.id)
         else:
             df_now = None
+        if isTrading_day==True:
+            #判断是否插入过
+            if m_db.find_lastone(Get_data_now())==0:
+                df_now = Now_Data(self.id)
+                m_db.insert_one({'日期':Get_data_now(),'今开':df_now.at(0,'今开'),'最高':df_now.at(0,'最高'),'今收':df_now.at(0,'现价'),'最低':df_now.at(0,'最低'),'总手':df_now.at(0,'总手'),'价差':df_now.at(0,'价差'),'涨幅':df_now.at(0,'涨幅')})
+
         #融合数据 现价当作今日收盘价
         #历史
         #日期':data, '今开': start, '最高':high, '今收':close, '最低': low, '总手': vol_s, '价差': pri_Dvalue, '涨幅': Increase
