@@ -1,9 +1,7 @@
 from threading import Thread
 import pandas as pd
-from Proxy_Tools.Proxy_Helper import Proxy_Helper
 from Stock_helper.All_Data import All_Data
-from Stock_helper.Now_data import Now_Data
-from Talib_func.BBANDS import  use_BBANDS
+from Talib_func.overlap_studies.BBANDS import  use_BBANDS
 from Talib_func.STOCH import  use_STOCH
 from Thread_tools.Dispatcher import Dispatcher
 
