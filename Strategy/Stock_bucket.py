@@ -8,6 +8,7 @@ lock_trix=threading.Lock()
 lock_wr=threading.Lock()
 lock_roc=threading.Lock()
 lock_brar=threading.Lock()
+lock_macd=threading.Lock()
 
 kdj=[]
 kdj_g=[]
@@ -17,6 +18,7 @@ trix=[]
 wr=[]
 roc=[]
 brar=[]
+macd=[]
 def insert_kdj(id):
     lock_kdj.acquire()
     kdj.append(id)
@@ -49,3 +51,45 @@ def insert_brar(id):
     lock_brar.acquire()
     brar.append(id)
     lock_brar.release()
+def insert_macd(id):
+    lock_macd.acquire()
+    macd.append(id)
+    lock_macd.release()
+    #
+    # kdj = []
+    # kdj_g = []
+    # boll = []
+    # sar = []
+    # trix = []
+    # wr = []
+    # roc = []
+    # brar = []
+    # macd = []
+def print_result():
+    print('------------------kdj----------------------')
+    for value in kdj:
+        print(value)
+    print('------------------kdj_g----------------------')
+    for value in kdj_g:
+        print(value)
+    print('------------------boll----------------------')
+    for value in boll:
+        print(value)
+    print('------------------sar----------------------')
+    for value in sar:
+        print(value)
+    print('------------------trix----------------------')
+    for value in trix:
+        print(value)
+    print('------------------wr----------------------')
+    for value in wr:
+        print(value)
+    print('------------------roc----------------------')
+    for value in roc:
+        print(value)
+    print('------------------brar----------------------')
+    for value in brar:
+        print(value)
+    print('------------------macd----------------------')
+    for value in macd:
+        print(value)

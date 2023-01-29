@@ -1,6 +1,7 @@
 from Strategy.Stock_bucket import insert_kdj, insert_kdj_g, insert_boll, insert_sar, insert_trix, insert_wr, insert_roc, \
-    insert_brar
+    insert_brar, insert_macd
 from Talib_func.BRAR import use_BRAR
+from Talib_func.MACD import use_MACD
 from Talib_func.ROC import use_ROC
 from Talib_func.STOCH import use_STOCH
 from Talib_func.TRIX import use_TRIX
@@ -10,7 +11,7 @@ from Talib_func.overlap_studies.SAR import use_SAR
 
 
 #只选可以买的 其他的不考虑
-class strategy:
+class Strategy:
     @staticmethod
     def KDJ(id,df):
         k, d, j = use_STOCH(df['high'],df['low'],df['close'])
@@ -72,7 +73,6 @@ class strategy:
             if now>=ma:
                 insert_roc(id)
 
-
     @staticmethod
     def BRAR(id,df):
         ar,br=use_BRAR(df['open'],df['high'],df['low'],df['close'])
@@ -80,6 +80,15 @@ class strategy:
         now_br = br.values[br.size - 1]
         if now_br<=40 or now_ar<40:
             insert_brar(id)
+    @staticmethod
+    def MACD(id,df):
+        DIF,dea,macd=use_MACD(df['close'])
+        dif = DIF.values[DIF.size - 1]
+        m = macd.values[macd.size - 1]
+        da=dea.values[dea.size - 1]
+        macd
+        if abs(dif-da)/dif<0.05 and m>-0.15:
+            insert_macd(id)
 
 
 

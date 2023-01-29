@@ -1,6 +1,7 @@
 from threading import Thread
 import pandas as pd
 from Stock_helper.All_Data import All_Data
+from Strategy.Strategy import Strategy
 from Talib_func.overlap_studies.BBANDS import  use_BBANDS
 from Talib_func.STOCH import  use_STOCH
 from Thread_tools.Dispatcher import Dispatcher
@@ -74,6 +75,16 @@ class WorkerThread(Thread):
                 # mutex.release()
                 if float(p_low) <= low and k.values[k.size - 1] < 20 and d.values[d.size - 1] < 20:
                     print(id.strip('\n'), p_now)
+
+                # Strategy.MACD(id,self.df)
+                # Strategy.SAR(id,self.df)
+                # Strategy.ROC(id,self.df)
+                # Strategy.WR(id,self.df)
+                # Strategy.BOLL(id,self.df)
+                # Strategy.BRAR(id,self.df)
+                # Strategy.KDJ(id,self.df)
+                # Strategy.TRIX(id,self.df)
+
             except Exception as e:
                 print(str(e))
 
