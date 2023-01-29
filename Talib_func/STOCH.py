@@ -3,7 +3,7 @@ import pandas as pd
 
 from Stock_helper.History_Data import His_Data
 from Stock_helper.Now_data import Now_Data
-
+#K线是快速确认线——数值在90以上为超买，数值在10以下为超卖；D线是慢速主干线——数值在80以上为超买，数值在20以下为超卖。
 
 def use_STOCH(high,low,close):
     k,d=tb.STOCH(high,low,close,
@@ -37,3 +37,4 @@ def use_STOCH_pro(ip_port,id,tf=0):
         se_low[se_low.values.size]=str(p_low)
     k,d,j=use_STOCH(se_high, se_low,se_close)
     return k,d,j
+
