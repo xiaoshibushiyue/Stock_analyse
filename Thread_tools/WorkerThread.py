@@ -23,6 +23,7 @@ class WorkerThread(Thread):
         self.id = disp.Dispatch(disp)
         while self.id!='0':
             self.cal(self.id)
+            print(self.id)
             self.id = disp.Dispatch(disp)
     def get_result(self):
         return self.result
@@ -54,38 +55,40 @@ class WorkerThread(Thread):
 
         #策略
         def strategy():
-            upperband, middleband, lowerband, = use_BBANDS(self.df['今收'])
-            p=self.df.values[-1]
+            # upperband, middleband, lowerband, = use_BBANDS(self.df['今收'])
+            # p=self.df.values[-1]
             try:
-                p_low=p[int(4+1)]
-                p_high=p[int(2+1)]
-                p_now=p[int(3+1)]
-                k, d, j = use_STOCH(self.df['最高'],self.df['最低'],self.df['今收'])
-                a = pd.Series(lowerband)
-                b = pd.Series(middleband)
-                c = pd.Series(upperband)
-                low = a.values[a.size - 1]
-                mid = b.values[b.size - 1]
-                high = c.values[c.size - 1]
+                # p_low=p[int(4+1)]
+                # p_high=p[int(2+1)]
+                # p_now=p[int(3+1)]
+                # k, d, j = use_STOCH(self.df['最高'],self.df['最低'],self.df['今收'])
+                # a = pd.Series(lowerband)
+                # b = pd.Series(middleband)
+                # c = pd.Series(upperband)
+                # low = a.values[a.size - 1]
+                # mid = b.values[b.size - 1]
+                # high = c.values[c.size - 1]
+                #
+                # # global s_num
+                # # mutex.acquire()
+                # # s_num = s_num + 1
+                # # print('已经测试' + str(s_num) + '个')
+                # # mutex.release()
+                # if float(p_low) <= low and k.values[k.size - 1] < 20 and d.values[d.size - 1] < 20:
+                #     print(id.strip('\n'), p_now)
 
-                # global s_num
-                # mutex.acquire()
-                # s_num = s_num + 1
-                # print('已经测试' + str(s_num) + '个')
-                # mutex.release()
-                if float(p_low) <= low and k.values[k.size - 1] < 20 and d.values[d.size - 1] < 20:
-                    print(id.strip('\n'), p_now)
-
-                # Strategy.MACD(id,self.df)
-                # Strategy.SAR(id,self.df)
-                # Strategy.ROC(id,self.df)
-                # Strategy.WR(id,self.df)
-                # Strategy.BOLL(id,self.df)
-                # Strategy.BRAR(id,self.df)
-                # Strategy.KDJ(id,self.df)
-                # Strategy.TRIX(id,self.df)
+                Strategy.MACD(id,self.df)
+                Strategy.SAR(id,self.df)
+                Strategy.ROC(id,self.df)
+                Strategy.WR(id,self.df)
+                Strategy.BOLL(id,self.df)
+                #里面数据为str
+                #Strategy.BRAR(id,self.df)
+                Strategy.KDJ(id,self.df)
+                Strategy.TRIX(id,self.df)
 
             except Exception as e:
+                print('策略异常！')
                 print(str(e))
 
         strategy()

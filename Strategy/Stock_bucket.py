@@ -93,3 +93,6 @@ def print_result():
     print('------------------macd----------------------')
     for value in macd:
         print(value)
+
+
+

@@ -45,8 +45,12 @@ def is_festival(date):
 def last_Tradingday():
     data = datetime.datetime.now()
     data=sub_day(data,1)
-    while is_weekday(data)==False:
+    hol= is_holiday(data)
+    fes,b=is_festival(data)
+    week=is_weekday(data)
+    while is_weekday(data)==False or b!=None:
         data = sub_day(data,1)
+        fes, b = is_festival(data)
     Y = data.year
     M = data.month
     D = data.day
