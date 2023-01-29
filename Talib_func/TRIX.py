@@ -7,13 +7,13 @@ import talib
 #，有时还会出现频繁交叉的情况，通常还有一个时间上的确认
 #a,d=use_TRIX(close,12)
 def use_TRIX(close, timeperiod=20):
-    a=talib.TRIX(close, timeperiod)
+    TRIX=talib.TRIX(close, timeperiod)
     #MA取12
-    b=a[-20::]
+    b=TRIX[-20::]
     c=0
     for value in b:
         c=c+value
 
-    d=c/20.0
-    return a,d
+    TRMA=c/20.0
+    return TRIX,TRMA
 

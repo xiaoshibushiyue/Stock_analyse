@@ -9,8 +9,8 @@ from Base_data import Get_stock_data
 
 
 def use_AD(high,low,close,vol):
-    #df=Get_stock_data(id,st,et)
-    tb.LINEARREG_ANGLE()
+    #df=Get_NEARREG_ANGLE()stock_data(id,st,et)
+    tb.VAR()
     a = tb.AD(high, low, close, vol)
     return a
 
